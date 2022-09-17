@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\User; 
- 
+use App\Models\User;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
@@ -18,7 +18,7 @@ use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\SiteSettingController;
 use App\Http\Controllers\Backend\ReturnController;
 use App\Http\Controllers\Backend\AdminUserController;
-  
+
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\CartController;
@@ -34,6 +34,8 @@ use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\User\AllUserController;
 
 use App\Http\Controllers\Frontend\ShopController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,14 +46,14 @@ use App\Http\Controllers\Frontend\ShopController;
 | contains the "web" middleware group. Now create something great!
 |
 */
- 
-Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
-	Route::get('/login', [AdminController::class, 'loginForm']);
-	Route::post('/login',[AdminController::class, 'store'])->name('admin.login');
+
+Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function () {
+    Route::get('/login', [AdminController::class, 'loginForm']);
+    Route::post('/login', [AdminController::class, 'store'])->name('admin.login');
 });
 
 
-Route::middleware(['auth:admin'])->group(function(){
+Route::middleware(['auth:admin'])->group(function () {
 
     Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
         return view('admin.index');
@@ -70,15 +72,14 @@ Route::middleware(['auth:admin'])->group(function(){
     Route::get('/admin/change/password', [AdminProfileController::class, 'AdminChangePassword'])->name('admin.change.password');
 
     Route::post('/update/change/password', [AdminProfileController::class, 'AdminUpdateChangePassword'])->name('update.change.password');
-
 });  // end Middleware admin
 
 // User ALL Routes
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
-	$id = Auth::user()->id;
+    $id = Auth::user()->id;
     $user = User::find($id);
-    return view('dashboard',compact('user'));
+    return view('dashboard', compact('user'));
 })->name('dashboard');
 
 Route::get('/', [IndexController::class, 'index']);
@@ -95,7 +96,7 @@ Route::post('/user/password/update', [IndexController::class, 'UserPasswordUpdat
 
 // Admin Brand All Routes 
 
-Route::prefix('brand')->group(function(){
+Route::prefix('brand')->group(function () {
 
     Route::get('/view', [BrandController::class, 'BrandView'])->name('all.brand');
 
@@ -106,11 +107,10 @@ Route::prefix('brand')->group(function(){
     Route::post('/update', [BrandController::class, 'BrandUpdate'])->name('brand.update');
 
     Route::get('/delete/{id}', [BrandController::class, 'BrandDelete'])->name('brand.delete');
-
 });
 
 // Admin Category all Routes  
-Route::prefix('category')->group(function(){
+Route::prefix('category')->group(function () {
 
     Route::get('/view', [CategoryController::class, 'CategoryView'])->name('all.category');
 
@@ -150,12 +150,11 @@ Route::prefix('category')->group(function(){
     Route::post('/sub/update', [SubCategoryController::class, 'SubSubCategoryUpdate'])->name('subsubcategory.update');
 
     Route::get('/sub/sub/delete/{id}', [SubCategoryController::class, 'SubSubCategoryDelete'])->name('subsubcategory.delete');
-
 });
 
 // Admin Products All Routes 
 
-Route::prefix('product')->group(function(){
+Route::prefix('product')->group(function () {
 
     Route::get('/add', [ProductController::class, 'AddProduct'])->name('add-product');
 
@@ -177,13 +176,12 @@ Route::prefix('product')->group(function(){
     Route::get('/active/{id}', [ProductController::class, 'ProductActive'])->name('product.active');
 
     Route::get('/delete/{id}', [ProductController::class, 'ProductDelete'])->name('product.delete');
-    
 });
 
 
 // Admin Slider All Routes 
 
-Route::prefix('slider')->group(function(){
+Route::prefix('slider')->group(function () {
 
     Route::get('/view', [SliderController::class, 'SliderView'])->name('manage-slider');
 
@@ -198,7 +196,6 @@ Route::prefix('slider')->group(function(){
     Route::get('/inactive/{id}', [SliderController::class, 'SliderInactive'])->name('slider.inactive');
 
     Route::get('/active/{id}', [SliderController::class, 'SliderActive'])->name('slider.active');
-
 });
 
 
@@ -242,7 +239,7 @@ Route::post('/add-to-wishlist/{product_id}', [CartController::class, 'AddToWishl
 
 
 /////////////////////  User Must Login  ////
-Route::group(['prefix'=>'user','middleware' => ['user','auth'],'namespace'=>'User'],function(){
+Route::group(['prefix' => 'user', 'middleware' => ['user', 'auth'], 'namespace' => 'User'], function () {
 
     // Wishlist page
     Route::get('/wishlist', [WishlistController::class, 'ViewWishlist'])->name('wishlist');
@@ -266,16 +263,15 @@ Route::group(['prefix'=>'user','middleware' => ['user','auth'],'namespace'=>'Use
     Route::get('/return/order/list', [AllUserController::class, 'ReturnOrderList'])->name('return.order.list');
 
     Route::get('/cancel/orders', [AllUserController::class, 'CancelOrders'])->name('cancel.orders');
-        
+
 
     /// Order Traking Route 
-    Route::post('/order/tracking', [AllUserController::class, 'OrderTraking'])->name('order.tracking');    
-
+    Route::post('/order/tracking', [AllUserController::class, 'OrderTraking'])->name('order.tracking');
 });
 
 
 
- // My Cart Page All Routes
+// My Cart Page All Routes
 Route::get('/mycart', [CartPageController::class, 'MyCart'])->name('mycart');
 
 Route::get('/user/get-cart-product', [CartPageController::class, 'GetCartProduct']);
@@ -289,23 +285,22 @@ Route::get('/cart-decrement/{rowId}', [CartPageController::class, 'CartDecrement
 
 // Admin Coupons All Routes 
 
-Route::prefix('coupons')->group(function(){
+Route::prefix('coupons')->group(function () {
 
-Route::get('/view', [CouponController::class, 'CouponView'])->name('manage-coupon');
+    Route::get('/view', [CouponController::class, 'CouponView'])->name('manage-coupon');
 
-Route::post('/store', [CouponController::class, 'CouponStore'])->name('coupon.store');
+    Route::post('/store', [CouponController::class, 'CouponStore'])->name('coupon.store');
 
-Route::get('/edit/{id}', [CouponController::class, 'CouponEdit'])->name('coupon.edit');
-Route::post('/update/{id}', [CouponController::class, 'CouponUpdate'])->name('coupon.update');
+    Route::get('/edit/{id}', [CouponController::class, 'CouponEdit'])->name('coupon.edit');
+    Route::post('/update/{id}', [CouponController::class, 'CouponUpdate'])->name('coupon.update');
 
-Route::get('/delete/{id}', [CouponController::class, 'CouponDelete'])->name('coupon.delete');
- 
+    Route::get('/delete/{id}', [CouponController::class, 'CouponDelete'])->name('coupon.delete');
 });
 
 
 // Admin Shipping All Routes 
 
-Route::prefix('shipping')->group(function(){
+Route::prefix('shipping')->group(function () {
 
     // Ship Division 
     Route::get('/division/view', [ShippingAreaController::class, 'DivisionView'])->name('manage-division');
@@ -330,7 +325,7 @@ Route::prefix('shipping')->group(function(){
     Route::post('/district/update/{id}', [ShippingAreaController::class, 'DistrictUpdate'])->name('district.update');
 
     Route::get('/district/delete/{id}', [ShippingAreaController::class, 'DistrictDelete'])->name('district.delete');
-    
+
 
     // Ship State 
     Route::get('/state/view', [ShippingAreaController::class, 'StateView'])->name('manage-state');
@@ -342,9 +337,6 @@ Route::prefix('shipping')->group(function(){
     Route::post('/state/update/{id}', [ShippingAreaController::class, 'StateUpdate'])->name('state.update');
 
     Route::get('/state/delete/{id}', [ShippingAreaController::class, 'StateDelete'])->name('state.delete');
-    
-
- 
 });
 
 
@@ -356,7 +348,7 @@ Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
 
 Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
 
- // Checkout Routes 
+// Checkout Routes 
 
 Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
 
@@ -370,7 +362,7 @@ Route::post('/checkout/store', [CheckoutController::class, 'CheckoutStore'])->na
 
 // Admin Order All Routes 
 
-Route::prefix('orders')->group(function(){
+Route::prefix('orders')->group(function () {
 
     Route::get('/pending/orders', [OrderController::class, 'PendingOrders'])->name('pending-orders');
 
@@ -400,11 +392,10 @@ Route::prefix('orders')->group(function(){
     Route::get('/shipped/delivered/{order_id}', [OrderController::class, 'ShippedToDelivered'])->name('shipped.delivered');
 
     Route::get('/invoice/download/{order_id}', [OrderController::class, 'AdminInvoiceDownload'])->name('invoice.download');
-
 });
 
 // Admin Reports Routes 
-Route::prefix('reports')->group(function(){
+Route::prefix('reports')->group(function () {
 
     Route::get('/view', [ReportController::class, 'ReportView'])->name('all-reports');
 
@@ -413,20 +404,19 @@ Route::prefix('reports')->group(function(){
     Route::post('/search/by/month', [ReportController::class, 'ReportByMonth'])->name('search-by-month');
 
     Route::post('/search/by/year', [ReportController::class, 'ReportByYear'])->name('search-by-year');
-
 });
 
 
 
 // Admin Get All User Routes 
-Route::prefix('alluser')->group(function(){
+Route::prefix('alluser')->group(function () {
 
-    Route::get('/view', [AdminProfileController::class, 'AllUsers'])->name('all-users');  
+    Route::get('/view', [AdminProfileController::class, 'AllUsers'])->name('all-users');
 });
 
 
 // Admin Blog  Routes 
-Route::prefix('blog')->group(function(){
+Route::prefix('blog')->group(function () {
 
     Route::get('/category', [BlogController::class, 'BlogCategory'])->name('blog.category');
 
@@ -444,7 +434,6 @@ Route::prefix('blog')->group(function(){
     Route::get('/add/post', [BlogController::class, 'AddBlogPost'])->name('add.post');
 
     Route::post('/post/store', [BlogController::class, 'BlogPostStore'])->name('post-store');
-
 });
 
 //  Frontend Blog Show Routes 
@@ -458,12 +447,12 @@ Route::get('/blog/category/post/{category_id}', [HomeBlogController::class, 'Hom
 
 
 // Admin Site Setting Routes 
-Route::prefix('setting')->group(function(){
+Route::prefix('setting')->group(function () {
 
     Route::get('/site', [SiteSettingController::class, 'SiteSetting'])->name('site.setting');
     Route::post('/site/update', [SiteSettingController::class, 'SiteSettingUpdate'])->name('update.sitesetting');
 
-    Route::get('/seo', [SiteSettingController::class, 'SeoSetting'])->name('seo.setting'); 
+    Route::get('/seo', [SiteSettingController::class, 'SeoSetting'])->name('seo.setting');
 
     Route::post('/seo/update', [SiteSettingController::class, 'SeoSettingUpdate'])->name('update.seosetting');
 });
@@ -471,14 +460,13 @@ Route::prefix('setting')->group(function(){
 
 
 // Admin Return Order Routes 
-Route::prefix('return')->group(function(){
+Route::prefix('return')->group(function () {
 
     Route::get('/admin/request', [ReturnController::class, 'ReturnRequest'])->name('return.request');
 
     Route::get('/admin/return/approve/{order_id}', [ReturnController::class, 'ReturnRequestApprove'])->name('return.approve');
 
     Route::get('/admin/all/request', [ReturnController::class, 'ReturnAllRequest'])->name('all.request');
-    
 });
 
 /// Frontend Product Review Routes
@@ -487,7 +475,7 @@ Route::post('/review/store', [ReviewController::class, 'ReviewStore'])->name('re
 
 
 // Admin Manage Review Routes 
-Route::prefix('review')->group(function(){
+Route::prefix('review')->group(function () {
 
     Route::get('/pending', [ReviewController::class, 'PendingReview'])->name('pending.review');
 
@@ -496,35 +484,32 @@ Route::prefix('review')->group(function(){
     Route::get('/publish', [ReviewController::class, 'PublishReview'])->name('publish.review');
 
     Route::get('/delete/{id}', [ReviewController::class, 'DeleteReview'])->name('delete.review');
- 
 });
 
 
 
 // Admin Manage Stock Routes 
-Route::prefix('stock')->group(function(){
+Route::prefix('stock')->group(function () {
 
-    Route::get('/product', [ProductController::class, 'ProductStock'])->name('product.stock');   
- 
+    Route::get('/product', [ProductController::class, 'ProductStock'])->name('product.stock');
 });
 
 
 
 // Admin User Role Routes 
-Route::prefix('adminuserrole')->group(function(){
+Route::prefix('adminuserrole')->group(function () {
 
     Route::get('/all', [AdminUserController::class, 'AllAdminRole'])->name('all.admin.user');
 
     Route::get('/add', [AdminUserController::class, 'AddAdminRole'])->name('add.admin');
 
     Route::post('/store', [AdminUserController::class, 'StoreAdminRole'])->name('admin.user.store');
-    
+
     Route::get('/edit/{id}', [AdminUserController::class, 'EditAdminRole'])->name('edit.admin.user');
 
     Route::post('/update', [AdminUserController::class, 'UpdateAdminRole'])->name('admin.user.update');
 
     Route::get('/delete/{id}', [AdminUserController::class, 'DeleteAdminRole'])->name('delete.admin.user');
-    
 });
 
 /// Product Search Route 

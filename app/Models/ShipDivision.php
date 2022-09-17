@@ -10,4 +10,3 @@ class ShipDivision extends Model
     use HasFactory;
     protected $guarded = [];
 }
- 

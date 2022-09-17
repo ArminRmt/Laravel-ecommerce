@@ -10,4 +10,3 @@ class Coupon extends Model
     use HasFactory;
     protected $guarded = [];
 }
-  

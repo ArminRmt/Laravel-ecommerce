@@ -22,12 +22,20 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
+            'phone' => $this->faker->phoneNumber(),
+            'last_seen' => $this->faker->text(30),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'username' => $this->faker->userName,
+            'password' => bcrypt('pass1'), // password
             'remember_token' => Str::random(10),
+            'current_team_id' => $this->faker->numberBetween(1, 3),
+            'profile_photo_path' => $this->faker->image('public/backend/images/avatar/avatar-1.png', 200, 200, null, false),
+
+
         ];
     }
 }
