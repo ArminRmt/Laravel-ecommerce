@@ -54,4 +54,10 @@ Features:
 
 -   Password Management: Implementation of password-related functionalities, including password recovery and change.
 
+
+Special Thanks to [Kazi Ariyan](https://www.easylearningbd.com/) for guidance and support in the development of this project.
+
+
+
+
 This e-commerce project combines the power of pure JavaScript for frontend development with the robustness of the Laravel framework for backend operations, offering users a seamless and feature-rich online shopping experience.
