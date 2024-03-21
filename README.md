@@ -3,27 +3,25 @@ E-commerce Project
 
 This e-commerce project leverages a combination of frontend technologies primarily based on pure JavaScript and backend functionalities implemented using the Laravel framework. Below are the key features of this application:
 
-
+<br>
 
 # Screenshots
 
 Here are some screenshots showcasing various aspects of the application:
 
-| ![Homepage Design](/path/to/homepage_screenshot.jpg "Homepage Design") | ![Product Pages](/path/to/product_pages_screenshot.jpg "Product Pages") |
+| ![Screenshot 1](https://github.com/ArminRmt/Laravel-ecommerce/raw/master/shots/Screenshot%20from%202024-03-21%2014-46-10.png "Screenshot 1") | ![Screenshot 2](https://github.com/ArminRmt/Laravel-ecommerce/raw/master/shots/Screenshot%20from%202024-03-21%2014-46-29.png "Screenshot 2") |
 |:---:|:---:|
-| *Homepage Design* | *Product Pages* |
+| *Screenshot 1* | *Screenshot 2* |
 
-| ![Order Tracking Interface](/path/to/order_tracking_screenshot.jpg "Order Tracking Interface") | ![User Profile Settings](/path/to/user_profile_screenshot.jpg "User Profile Settings") |
+| ![Screenshot 3](https://github.com/ArminRmt/Laravel-ecommerce/raw/master/shots/Screenshot%20from%202024-03-21%2014-46-48.png "Screenshot 3") | ![Screenshot 4](https://github.com/ArminRmt/Laravel-ecommerce/raw/master/shots/Screenshot%20from%202024-03-21%2014-47-17.png "Screenshot 4") |
 |:---:|:---:|
-| *Order Tracking Interface* | *User Profile Settings* |
+| *Screenshot 3* | *Screenshot 4* |
 
-| ![Shopping Cart and Checkout](/path/to/shopping_cart_screenshot.jpg "Shopping Cart and Checkout") |
+| ![Screenshot 5](https://github.com/ArminRmt/Laravel-ecommerce/raw/master/shots/Screenshot%20from%202024-03-21%2014-47-33.png "Screenshot 5") |
 |:---:|
-| *Shopping Cart and Checkout* |
 
 
-
-
+<br><br>
 
 
 
@@ -78,10 +76,11 @@ Features:
 
 -   Password Management: Implementation of password-related functionalities, including password recovery and change.
 
+<br>
 
 Special Thanks to [Kazi Ariyan](https://www.easylearningbd.com/) for guidance and support in the development of this project.
 
 
-
+<br>
 
 This e-commerce project combines the power of pure JavaScript for frontend development with the robustness of the Laravel framework for backend operations, offering users a seamless and feature-rich online shopping experience.
