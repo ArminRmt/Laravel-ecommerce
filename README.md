@@ -3,6 +3,30 @@ E-commerce Project
 
 This e-commerce project leverages a combination of frontend technologies primarily based on pure JavaScript and backend functionalities implemented using the Laravel framework. Below are the key features of this application:
 
+
+
+# Screenshots
+
+Here are some screenshots showcasing various aspects of the application:
+
+| ![Homepage Design](/path/to/homepage_screenshot.jpg "Homepage Design") | ![Product Pages](/path/to/product_pages_screenshot.jpg "Product Pages") |
+|:---:|:---:|
+| *Homepage Design* | *Product Pages* |
+
+| ![Order Tracking Interface](/path/to/order_tracking_screenshot.jpg "Order Tracking Interface") | ![User Profile Settings](/path/to/user_profile_screenshot.jpg "User Profile Settings") |
+|:---:|:---:|
+| *Order Tracking Interface* | *User Profile Settings* |
+
+| ![Shopping Cart and Checkout](/path/to/shopping_cart_screenshot.jpg "Shopping Cart and Checkout") |
+|:---:|
+| *Shopping Cart and Checkout* |
+
+
+
+
+
+
+
 Features:
 ---------
 
